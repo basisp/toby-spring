@@ -1,15 +1,26 @@
 package springbook111.dao;
 
+import springbook111.Closer;
+import springbook111.DBConnector;
 import springbook111.domain.User;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class UserDao{
+
+    DBConnector dbConnector;
+    Closer closer;
+
+    public UserDao(){
+        dbConnector = new DBConnector();
+        closer = new Closer();
+    }
     public void add(User user) throws ClassNotFoundException, SQLException{
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection c = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/springbook", "root", "1234");
+        Connection c= dbConnector.connect();
 
         PreparedStatement ps =c.prepareStatement(
                 "insert into users(id, name, password) values (?,?,?)"
@@ -21,15 +32,13 @@ public class UserDao{
 
         ps.executeUpdate();
 
-        ps.close();
-        c.close();
+        closer.close(ps,c);
+
     }
 
     public User get(String id) throws ClassNotFoundException, SQLException{
 
-        Class.forName("com.mysql.cj.jdbc.Driver");
-        Connection c = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/springbook", "root", "1234");
+        Connection c= dbConnector.connect();
 
         PreparedStatement ps =c.prepareStatement(
                 "select * from users where id=?"
@@ -43,9 +52,10 @@ public class UserDao{
         user.setName(rs.getString("id"));
         user.setPassword(rs.getString("password"));
 
+
         rs.close();
-        ps.close();
-        c.close();
+        closer.close(ps,c);
+
 
         return user;
     }
