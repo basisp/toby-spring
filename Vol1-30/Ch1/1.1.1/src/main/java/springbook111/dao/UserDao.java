@@ -9,7 +9,7 @@ public class UserDao{
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection c = DriverManager.getConnection(
-                "jdbc:mysql//localhost:3306/springbook", "root", "1234");
+                "jdbc:mysql://localhost:3306/springbook", "root", "1234");
 
         PreparedStatement ps =c.prepareStatement(
                 "insert into users(id, name, password) values (?,?,?)"
@@ -29,7 +29,7 @@ public class UserDao{
 
         Class.forName("com.mysql.cj.jdbc.Driver");
         Connection c = DriverManager.getConnection(
-               "jdbc:mysql//localhost:3306/springbook", "root", "1234");
+                "jdbc:mysql://localhost:3306/springbook", "root", "1234");
 
         PreparedStatement ps =c.prepareStatement(
                 "select * from users where id=?"
