@@ -11,16 +11,16 @@ import java.sql.SQLException;
 
 public class UserDao{
 
-    DBConnector dbConnector;
-    Closer closer;
+    private final ConnectionMaker connectionMaker;
+    private final Closer closer;
 
-    public UserDao(){
-        dbConnector = new DBConnector();
+    public UserDao(ConnectionMaker connectionMaker){
         closer = new Closer();
+        this.connectionMaker= connectionMaker;
     }
     public void add(User user) throws ClassNotFoundException, SQLException{
 
-        Connection c= dbConnector.connect();
+        Connection c= connectionMaker.makeConnection();
 
         PreparedStatement ps =c.prepareStatement(
                 "insert into users(id, name, password) values (?,?,?)"
@@ -38,7 +38,7 @@ public class UserDao{
 
     public User get(String id) throws ClassNotFoundException, SQLException{
 
-        Connection c= dbConnector.connect();
+        Connection c= connectionMaker.makeConnection();
 
         PreparedStatement ps =c.prepareStatement(
                 "select * from users where id=?"
