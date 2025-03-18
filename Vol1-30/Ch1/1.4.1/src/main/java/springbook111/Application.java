@@ -2,8 +2,7 @@ package springbook111;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import springbook111.dao.ConnectionMaker;
-import springbook111.dao.DConnectionMaker;
+import springbook111.dao.DaoFactory;
 import springbook111.dao.UserDao;
 import springbook111.domain.User;
 
@@ -15,8 +14,7 @@ public class Application {
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		SpringApplication.run(Application.class, args);
 
-		ConnectionMaker c = new DConnectionMaker();
-		UserDao dao=new UserDao(c);
+		UserDao dao = new DaoFactory().userDao();
 
 		User user =new User();
 		user.setId("whiteship");
