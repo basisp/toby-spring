@@ -1,7 +1,6 @@
 package springbook111.dao;
 
 import springbook111.Closer;
-import springbook111.DBConnector;
 import springbook111.domain.User;
 
 import java.sql.Connection;
