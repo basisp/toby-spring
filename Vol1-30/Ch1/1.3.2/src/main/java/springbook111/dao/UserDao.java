@@ -1,7 +1,6 @@
 package springbook111.dao;
 
 import springbook111.Closer;
-import springbook111.DBConnector;
 import springbook111.domain.User;
 
 import java.sql.Connection;
@@ -10,16 +9,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UserDao{
+    ConnectionMaker connectionMaker;
 
-    public ConnectionMaker DConnectionMaker;
-    public ConnectionMaker NConnectionMaker;
-
-    public UserDao(){
-        DConnectionMaker = (ConnectionMaker) new DConnectionMaker();
-        NConnectionMaker = (ConnectionMaker) new NConnectionMaker();
+    public UserDao(ConnectionMaker connectionMaker){
+        this.connectionMaker = connectionMaker;
     }
 
-    public void add(User user, ConnectionMaker connectionMaker) throws ClassNotFoundException, SQLException{
+    public void add(User user) throws ClassNotFoundException, SQLException{
 
         Connection c= connectionMaker.makeConnection();
 
@@ -37,7 +33,7 @@ public class UserDao{
 
     }
 
-    public User get(String id,ConnectionMaker connectionMaker) throws ClassNotFoundException, SQLException{
+    public User get(String id) throws ClassNotFoundException, SQLException{
 
         Connection c= connectionMaker.makeConnection();
 
