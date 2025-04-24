@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class Closer {
+final public class Closer {
 
-    public void close(PreparedStatement ps, Connection c) throws SQLException {
+    static public void close(PreparedStatement ps, Connection c) throws SQLException {
         ps.close();
         c.close();
     }

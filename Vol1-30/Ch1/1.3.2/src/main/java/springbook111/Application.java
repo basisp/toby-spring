@@ -20,11 +20,11 @@ public class Application {
 		user.setName("백기선");
 		user.setPassword("married");
 
-		dao.add(user);
+		dao.add(user, dao.DConnectionMaker);
 
 		System.out.println(user.getId() + " 등록 성공");
 
-		User user2 =dao.get(user.getId())
+		User user2 =dao.get(user.getId(), dao.DConnectionMaker)
 ;
 		System.out.println(user2.getName());
 		System.out.println(user2.getPassword());
